@@ -48,7 +48,7 @@
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js'></script>
 <script type='text/javascript' src='tree-acordion.js'></script>
 <script type='text/javascript'>
-	var list = new TreeAcordion('root');
+	var list = new TreeAcordion('root',{multiple:true});
 	list.addEvent('handled-opened',function(ul){console.log(ul);});
 </script>
 </body>

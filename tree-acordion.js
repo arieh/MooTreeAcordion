@@ -6,6 +6,7 @@ var TreeAcordion = new Class({
 		branchContrainer : 'li',
 		acordOpenFunction : $empty,
 		acordCloseFunction : $empty,
+		multiple : false
 	},
 	root : $empty,
 	initialize : function(root,options){
@@ -41,11 +42,10 @@ var TreeAcordion = new Class({
 					e.stopPropagation();
 					return;
 				}
-				
 				if (last_branch === branch){
 					self.Acord(branch);
 				}else{
-					if (last_branch.hasClass('acord-opened')) self.Acord(last_branch);
+					if (last_branch.hasClass('acord-opened') && false == self.options.multiple) self.Acord(last_branch);
 					self.Acord(branch);
 					parent.store('last-branch',branch);
 				}

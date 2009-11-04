@@ -1,4 +1,4 @@
-TreeAcordion 1.2
+TreeAcordion 1.3
 =================
 this class takes a tree structure (by element id of by a passed element) and makes it tweakable with an Acordion effect.
 it takes the following paramaters as options:
@@ -22,5 +22,7 @@ it takes the following paramaters as options:
 the default layout for this class is a root-ul, containing multiple lis, each containing only one branch, which in turn is a ul etc.
 you might want for whatever reason to choose a different setup. the only limition that i can think of is that each branchContainer should only
 hold one branch. another will simply be ignored.
+
+also, you can now find the current opened list with the 'acord-current' class
 		
 		

@@ -30,6 +30,7 @@ var TreeAcordion = new Class({
 		multiple : false
 	},
 	root : $empty,
+	current : $empty,
 	initialize : function(root,options){
 		this.setOptions(options);
 		if (this.options.acordOpenFunction == $empty) this.options.acordOpenFunction = this.acordOpenFunction;
@@ -102,9 +103,12 @@ var TreeAcordion = new Class({
 			if (parent)	this.AcordParentOpen(parent,height);
 			this.fireEvent('acord-opened',branch);
 			this.fireEvent('handled-opened',branch.retrieve('handler'));
+			if (this.current != $empty) this.current.removeClass('accord-current');
+			this.current = branch;
+			this.current.addClass('accord-current');	
 		}else{
 			if (parent)	this.AcordParentClose(parent,height);
-			this.options.acordCloseFunction(branch,height)	
+			this.options.acordCloseFunction(branch,height);	
 			branch.getElements('.'+this.options.branchClass)
 				.each(function(br){
 					br.setStyle('height',0)
@@ -116,7 +120,10 @@ var TreeAcordion = new Class({
 			branch.addClass('acord-closed');
 			this.fireEvent('acord-closed');
 			this.fireEvent('handled-closed',branch.retrieve('handler'));
+			if (this.current != $empty) this.current.removeClass('accord-current');
+			this.current = $empty;
 		}
+		
 	},
 	AcordParentOpen : function(branch,height){
 		if (branch == this.root) return;

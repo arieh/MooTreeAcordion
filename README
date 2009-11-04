@@ -1,0 +1,25 @@
+TreeAcordion 1.0
+=================
+this class takes a tree structure (by element id of by a passed element) and makes it tweakable with an Acordion effect.
+it takes the following paramaters as options:
+	branchClass : a class to identify all the branches.
+	openerClass : a class to identify the open-close handler. 
+				  if supplied, it will assume the handler to be assigned to the first sibling branch
+	branchContrainer : a selector to use for identifing the container for the branch and its handler. 
+					   note that this is by default 'li', and yu should only change it if, for some reason,
+					   you are not using the ul->li->ul layout
+	acordOpenFunction  : a function to use in case you prefer a different effect for the tree opening
+	acordCloseFunction : a function to use in case you prefer a different effect for the tree closing
+
+	Events:
+		acord-opened : fired when a branch is opened. returns the opened branch
+		acord-closed : fired when a branch is closed. returns the closed branch
+		handled-opened : fired when a handled branch is opened. returns the handler
+		handled-closed : fired when a handled branch is closed. returns the handler
+		
+		
+the default layout for this class is a root-ul, containing multiple lis, each containing only one branch, which in turn is a ul etc.
+you might want for whatever reason to choose a different setup. the only limition that i can think of is that each branchContainer should only
+hold one branch. another will simply be ignored.
+		
+		

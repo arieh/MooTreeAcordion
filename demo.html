@@ -1,0 +1,55 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+	<title>Tree Acordion Example</title>
+	<meta http-equiv="Content-Type" content="text/html; charset='UTF-8'" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+	<style type='text/css'>
+		ul.branch {display:none}
+		.acord-handle{cursor:default;}
+		.acord-handle:hover{text-decoration:underline;}
+	</style>
+</head>
+<body >
+<ul id='root'>
+	<li>
+		<span class='acord-handle'>a</span>
+		<ul class='branch' id='a'>
+			<li>b</li>
+			<li>c</li>
+		</ul>
+	</li>
+	<li>
+		<span class='acord-handle'>d</span>
+		<ul class='branch' id='d'>
+			<li>e</li>
+			<li>
+				<span class='acord-handle'>f</span>
+				<ul class='branch' id='f'>
+					<li><span class='acord-handle'>g</span>
+						<ul class='branch' id='g'>
+							<li>a</li>
+						</ul>
+					</li>
+					<li><span class='acord-handle'>h</span>
+						<ul class='branch' id='h'>
+							<li>a</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js'></script>
+<script type='text/javascript' src='tree-acordion.js'></script>
+<script type='text/javascript'>
+	var list = new TreeAcordion('root');
+	list.addEvent('handled-opened',function(ul){console.log(ul);});
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-TreeAcordion 1.1
+TreeAcordion 1.2
 =================
 this class takes a tree structure (by element id of by a passed element) and makes it tweakable with an Acordion effect.
 it takes the following paramaters as options:

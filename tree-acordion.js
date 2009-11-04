@@ -54,8 +54,7 @@ var TreeAcordion = new Class({
 			}
 			branch.store('handler',handler);	
 			handler.addEvent('click',function(e){
-				var dis = branch.getStyle('display'), 
-					last_branch= parent.retrieve('last-branch');
+				var last_branch= parent.retrieve('last-branch');
 				
 				if (!last_branch){
 					parent.store('last-branch',branch);
@@ -106,7 +105,13 @@ var TreeAcordion = new Class({
 		}else{
 			if (parent)	this.AcordParentClose(parent,height);
 			this.options.acordCloseFunction(branch,height)	
-			branch.getElements(this.options.branchClass).setStyle('height',0);
+			branch.getElements('.'+this.options.branchClass)
+				.each(function(br){
+					br.setStyle('height',0)
+					.addClass('acord-closed')
+					.removeClass('acord-opened')
+					.store('last-branch',false);
+				});
 			branch.removeClass('acord-opened');
 			branch.addClass('acord-closed');
 			this.fireEvent('acord-closed');

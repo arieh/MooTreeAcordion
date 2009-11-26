@@ -7,31 +7,32 @@
 	<title>Tree Acordion Example</title>
 	<meta http-equiv="Content-Type" content="text/html; charset='UTF-8'" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-
-	<style type='text/css'>
-		ul.branch {display:none}
-		.acord-handle{cursor:default;}
-		.acord-handle:hover{text-decoration:underline;}
-	</style>
+	<link type='text/css' rel="stylesheet" href="css/main.css" />
 </head>
 <body >
 <ul id='root'>
 	<li>
 		<span class='acord-handle'>a</span>
 		<ul class='branch' id='a'>
-			<li>b</li>
-			<li>c</li>
+			<li>
+				<span class="acord-handle">j</span>				<ul id="j" class="branch">					<li>k</li>				</ul>
+			</li>
+			<li>
+				<span class="acord-handle">b</span>				<ul id="b" class="branch">					<li>l</li>				</ul>
+			</li>
 		</ul>
 	</li>
 	<li>
 		<span class='acord-handle'>d</span>
 		<ul class='branch' id='d'>
-			<li>e</li>
+			<li><span class='acord-handle'>e</span>
+				<ul id="e" class="branch">					<li>i</li>				</ul>
+			</li>
 			<li>
 				<span class='acord-handle'>f</span>
 				<ul class='branch' id='f'>
 					<li><span class='acord-handle'>g</span>
-						<ul class='branch' id='g'>
+						<ul class='branch' id='g' >
 							<li>a</li>
 						</ul>
 					</li>
@@ -45,11 +46,11 @@
 		</ul>
 	</li>
 </ul>
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js'></script>
-<script type='text/javascript' src='tree-acordion.js'></script>
+<script type="text/javascript" src="js/mootools-1.2.4-core.js"></script>
+<script type="text/javascript" src="js/mootools-1.2.4.2-more.js"></script>
+<script type='text/javascript' src='js/tree-acordion.js'></script>
 <script type='text/javascript'>
 	var list = new TreeAcordion('root',{multiple:false});
-
 </script>
 </body>
 </html>

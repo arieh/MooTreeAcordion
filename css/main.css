@@ -1,0 +1,5 @@
+ul{list-style-type:none;}
+#root{width:300px; padding:0;}
+ul.branch {display:none;text-indent:20px;background:#aba;}
+.acord-handle{cursor:default;display:block; width:100%;  background:url('../handle.png'); height:20px;}
+.acord-handle:hover{text-decoration:underline;}

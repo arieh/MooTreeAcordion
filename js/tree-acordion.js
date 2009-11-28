@@ -98,12 +98,12 @@ var TreeAcordion = new Class({
 	 * @param {Element} container
 	 */
 	initBranchContainer :function(container){
-		var parent = this.findParent(container),
-			branch  = container.getElement('.'+this.options.branchClass),
+		var branch  = container.getElement('.'+this.options.branchClass), 
+			parent = branch ? branch.retrieve('parent-branch'):this.findParent(container) ,
 			handler = container.getElement('.'+this.options.openerClass),
 			self = this,
 			height;
-				
+			
 		if (!handler) handler = container;
 		if (!branch){
 			container.addEvent('click',function(e){e.stopPropagation();});
@@ -112,24 +112,8 @@ var TreeAcordion = new Class({
 		branch.store('handler',handler);
 				
 		handler.addEvent('click',function(e){
-			if (self.options.debug) console.log(branch.get('id'));
-			
-			var last_branch= parent.retrieve('last-branch');
-				
-			if (!last_branch){
-				self.Acord(branch);
-				e.stopPropagation();
-				return;
-			}
-				
-			if (last_branch != branch ){
-				if (last_branch.hasClass('acord-opened') && false == self.options.multiple){
-					self.Acord(last_branch);
-				} 
-			}
-				
-			self.Acord(branch);
-			e.stopPropagation();
+			self.toggleHandler(branch);
+			if (e) e.stopPropagation();
 		});
 	},
 	/**
@@ -147,6 +131,25 @@ var TreeAcordion = new Class({
 		if (parent == this.root) return parent;
 		
 		throw "no root element found for tree";
+	},
+	toggleHandler : function(branch){
+		if (this.options.debug) console.log(branch.get('id'));
+			
+		var parent = branch.retrieve('parent-branch'),
+			last_branch= parent.retrieve('last-branch');
+				
+		if (!last_branch){
+			this.Acord(branch);
+			return;
+		}
+				
+		if (last_branch != branch ){
+			if (last_branch.hasClass('acord-opened') && false == this.options.multiple){
+				this.Acord(last_branch);
+			} 
+		}
+				
+		this.Acord(branch);
 	},
 	/**
 	 * calls the Accordion effect on a given branch

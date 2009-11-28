@@ -46,16 +46,13 @@ var TreeAcordion = new Class({
 		
 		this.root.setStyle('left',-9999);
 		$$('body')[0].adopt(this.root);
-		this.root.store('full-height',this.root.getSize().y.toInt());
+		
 		
 		branches.each(function(branch){
 			branch.setStyle('display','block');
 			self.initBranches(branch);
 			self.initBranchHeights(branch);
 		});
-
-		this.root.replaces(clone);
-		clone.destroy();
 		
 		root_lis.each(function(li){
 			var branch  = li.getElement('.'+self.options.branchClass),
@@ -72,7 +69,6 @@ var TreeAcordion = new Class({
 				var last_branch= parent.retrieve('last-branch');
 				
 				if (!last_branch){
-					parent.store('last-branch',branch);
 					self.Acord(branch);
 					e.stopPropagation();
 					return;
@@ -80,13 +76,20 @@ var TreeAcordion = new Class({
 				if (last_branch === branch){
 					self.Acord(branch);
 				}else{
-					if (last_branch.hasClass('acord-opened') && false == self.options.multiple) self.Acord(last_branch);
+					if (last_branch.hasClass('acord-opened') && false == self.options.multiple){
+						self.Acord(last_branch);
+					} 
 					self.Acord(branch);
-					parent.store('last-branch',branch);
+					
 				}
 				e.stopPropagation();
 			});
 		});
+		this.root.setStyle('height','auto');
+		this.root.store('full-height',this.root.getSize().y.toInt());
+		this.root.setStyle('height',this.root.retrieve('full-height'));
+		this.root.replaces(clone);
+		clone.destroy();
 	},
 	initBranches : function(branch){		
 		var height;
@@ -103,6 +106,26 @@ var TreeAcordion = new Class({
 		branch.setStyle('height','auto');
 		branch.store('full-height',branch.getSize().y.toInt());
 		branch.setStyle('height',0);
+	},
+	closeChildBranches : function(branch,self){
+		var children = [], child = branch.retrieve('last-branch');
+		while (child){
+			children.push(child);
+			child = child.retrieve('last-branch');
+		} 
+		child = children.pop();
+		while (child){
+			self.Acord(child);
+			child = children.pop();
+		}
+	},
+	closeMultipleChildren : function (branch,self){
+		var child = branch.getElement('.acord-opened');
+		while (child){
+			self.closeMultipleChildren(child,self);
+			self.Acord(child,self);
+			child = branch.getElement('.acord-opened');
+		}
 	},
 	Acord : function(branch){
 		var height = branch.retrieve('full-height'),
@@ -123,26 +146,19 @@ var TreeAcordion = new Class({
 			if (this.current && this.current.removeClass) this.current.removeClass('accord-current');
 			
 			this.current = branch;
-			this.current.addClass('accord-current');	
-		}else{
-			branch.getElements('.acord-opened').each(function(child){
-				self.Acord(child);
-			});
+			this.current.addClass('accord-current');
 			
+			parent.store('last-branch',branch);	
+		}else{
+			if (self.options.multiple) self.closeMultipleChildren(branch,self);
+			else self.closeChildBranches(branch,self);
 			if (parent)	this.AcordParentClose(parent,height);
 			
 			this.options.acordCloseFunction(branch,height);	
 			
-			branch.getElements('.'+this.options.branchClass)
-				.each(function(br){
-					br.setStyle('height',0)
-					.addClass('acord-closed')
-					.removeClass('acord-opened')
-					.store('last-branch',false);
-				});
-			
 			branch.removeClass('acord-opened');
 			branch.addClass('acord-closed');
+			parent.store('last-branch',false);
 			
 			this.fireEvent('acord-closed');
 			this.fireEvent('handled-closed',branch.retrieve('handler'));
@@ -160,7 +176,7 @@ var TreeAcordion = new Class({
 		if (!branch_height) branch_height = branch.retrieve('full-height');
 		
 		branch.store('current-height',branch_height+height);
-		branch.tween('height',branch_height+height);
+		this.acordOpenFunction(branch,branch_height+height);
 		
 		if (parent) this.AcordParentOpen(parent,height);
 	},

@@ -10,6 +10,9 @@
 	<link type='text/css' rel="stylesheet" href="css/main.css" />
 </head>
 <body >
+<p>
+	<a href='javascript:;' id='set-flag'>toggle multiple</a>
+</p>
 <ul id='root'>
 	<li>
 		<span class='acord-handle'>a</span>
@@ -33,12 +36,16 @@
 				<ul class='branch' id='h'>
 					<li><span class='acord-handle'>j</span>
 						<ul class='branch' id='j' >
-							<li>l</li>
+							<li>
+								<span class="acord-handle">l</span>								<ul id="l" class="branch">									<li>o</li>								</ul>
+							</li>
 						</ul>
 					</li>
 					<li><span class='acord-handle'>k</span>
 						<ul class='branch' id='k'>
-							<li>m</li>
+							<li>
+								<span class="acord-handle">m</span>								<ul id="m" class="branch">									<li>n</li>								</ul>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -50,7 +57,13 @@
 <script type="text/javascript" src="js/mootools-1.2.4.2-more.js"></script>
 <script type='text/javascript' src='js/tree-acordion.js'></script>
 <script type='text/javascript'>
-	var list = new TreeAcordion('root',{multiple:false});
+	var list = new TreeAcordion('root',{multiple:false}), flag = true;
+	$('set-flag').addEvent('click',function(){
+		if (flag) flag = false;
+		else flag = true;
+		list.setMultiple(flag);
+		console.log('multiple:',flag);
+	})
 </script>
 </body>
 </html>

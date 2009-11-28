@@ -19,6 +19,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE 
 */
+
 var TreeAcordion = new Class({
 	Implements: [Options, Events],
 	options: {
@@ -35,7 +36,7 @@ var TreeAcordion = new Class({
 		this.setOptions(options);
 		if (this.options.acordOpenFunction == $empty) this.options.acordOpenFunction = this.acordOpenFunction;
 		if (this.options.acordCloseFunction == $empty) this.options.acordCloseFunction = this.acordCloseFunction;
-		this.root = $(root);
+		this.root = document.id(root);
 		
 		var self=this,
 			clone = this.root.clone(),

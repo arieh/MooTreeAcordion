@@ -23,16 +23,21 @@ THE SOFTWARE
 var TreeAcordion = new Class({
 	Implements: [Options, Events],
 	options: {
-		branchClass : 'branch', 
-		openerClass : 'acord-handle',
-		branchContrainer : 'li',
-		acordOpenFunction : $empty,
-		acordCloseFunction : $empty,
-		multiple : false,
-		debug : false
+		branchClass : 'branch',  //the branches class
+		openerClass : 'acord-handle', //the handlers class
+		branchContrainer : 'li', //the direct container element of all branches
+		acordOpenFunction : $empty, //a function to use for opening a branch
+		acordCloseFunction : $empty, //a function to use for closing a branch
+		multiple : false, //whether or not to allow multiple branches to be opened alongside
+		debug : false //debug mode
 	},
 	root : $empty,
 	current : $empty,
+	/**
+	 * constructor
+	 * @param {Element} root the root element of the list
+	 * @param {Object} options
+	 */
 	initialize : function(root,options){
 		this.setOptions(options);
 		if (this.options.acordOpenFunction == $empty) this.options.acordOpenFunction = this.acordOpenFunction;
@@ -42,58 +47,33 @@ var TreeAcordion = new Class({
 		var self=this,
 			clone = this.root.clone(),
 			branches = this.root.getElements('.'+this.options.branchClass),  
-			root_lis = this.root.getElements(this.options.branchContrainer);
+			root_containers = this.root.getElements(this.options.branchContrainer);
 		
 		clone.replaces(this.root);		
 		
 		this.root.setStyle('left',-9999);
 		$$('body')[0].adopt(this.root);
 		
-		
 		branches.each(function(branch){
 			branch.setStyle('display','block');
-			self.initBranches(branch);
-			self.initBranchHeights(branch);
+			self.initBranch(branch);
+			self.initBranchHeight(branch);
 		});
 		
-		root_lis.each(function(li){
-			var branch  = li.getElement('.'+self.options.branchClass),
-				parent = li.getParent(),height,
-				handler = li.getElement('.'+self.options.openerClass);
-			if (!handler) handler = li;
-			
-			if (!branch){
-				li.addEvent('click',function(e){e.stopPropagation();});
-				return;
-			}
-			branch.store('handler',handler);	
-			handler.addEvent('click',function(e){
-				var last_branch= parent.retrieve('last-branch');
-				
-				if (!last_branch){
-					self.Acord(branch);
-					e.stopPropagation();
-					return;
-				}
-				if (last_branch === branch){
-					self.Acord(branch);
-				}else{
-					if (last_branch.hasClass('acord-opened') && false == self.options.multiple){
-						self.Acord(last_branch);
-					} 
-					self.Acord(branch);
-					
-				}
-				e.stopPropagation();
-			});
-		});
+		root_containers.each(this.initBranchContainer.bind(this));
+		
 		this.root.setStyle('height','auto');
 		this.root.store('full-height',this.root.getSize().y.toInt());
 		this.root.setStyle('height',this.root.retrieve('full-height'));
 		this.root.replaces(clone);
 		clone.destroy();
+		if (this.options.debug) console.log('tree is initialized');
 	},
-	initBranches : function(branch){		
+	/**
+	 * initializes a branch's default properties
+	 * @param {Element} branch
+	 */
+	initBranch : function(branch){		
 		var height;
 		branch.setStyles({
 			'position':'relative',
@@ -104,17 +84,137 @@ var TreeAcordion = new Class({
 		branch.addClass('acord-closed');
 		branch.store('parent-branch',this.findParent(branch));
 	},
-	initBranchHeights : function(branch){
+	/**
+	 * stores the branch`s full height
+	 * @param {Element} branch
+	 */
+	initBranchHeight : function(branch){
 		branch.setStyle('height','auto');
 		branch.store('full-height',branch.getSize().y.toInt());
 		branch.setStyle('height',0);
 	},
 	/**
-	 * closes the children of a branch in a multiple:false flag
-	 * @param {Element} branch
-	 * @param {Object} self used instead of bind because this is a recursion
+	 * initializes the branches containers
+	 * @param {Element} container
 	 */
-	closeChildBranches : function(branch,self){
+	initBranchContainer :function(container){
+		var parent = this.findParent(container),
+			branch  = container.getElement('.'+this.options.branchClass),
+			handler = container.getElement('.'+this.options.openerClass),
+			self = this,
+			height;
+				
+		if (!handler) handler = container;
+		if (!branch){
+			container.addEvent('click',function(e){e.stopPropagation();});
+			return;
+		}
+		branch.store('handler',handler);
+				
+		handler.addEvent('click',function(e){
+			if (self.options.debug) console.log(branch.get('id'));
+			
+			var last_branch= parent.retrieve('last-branch');
+				
+			if (!last_branch){
+				self.Acord(branch);
+				e.stopPropagation();
+				return;
+			}
+				
+			if (last_branch != branch ){
+				if (last_branch.hasClass('acord-opened') && false == self.options.multiple){
+					self.Acord(last_branch);
+				} 
+			}
+				
+			self.Acord(branch);
+			e.stopPropagation();
+		});
+	},
+	/**
+	 * finds the parent branch of a given element
+	 * @param {Element} ele
+	 */
+	findParent : function(ele){
+		var parent = ele.getParent();
+		
+		while (parent.get('tag')!='body' && parent != this.root){
+			if (parent.hasClass('branch')) return parent;
+			parent = parent.getParent();
+		}
+		
+		if (parent == this.root) return parent;
+		
+		throw "no root element found for tree";
+	},
+	/**
+	 * calls the Accordion effect on a given branch
+	 * @param {Element} branch
+	 */
+	Acord : function(branch){
+		if (branch.hasClass('acord-closed')){
+			this.openBranch(branch);
+		}else{
+			this.closeBranch(branch);
+		}
+	},
+	/**
+	 * performs the opening action on a branch
+	 * @param {Element} branch
+	 */
+	openBranch : function(branch){
+		var height = branch.retrieve('full-height'),
+			parent = branch.retrieve('parent-branch');
+			
+		this.options.acordOpenFunction(branch,height);
+			
+		branch.removeClass('acord-closed');
+		branch.addClass('acord-opened');
+			
+		if (parent)	this.AcordParentOpen(parent,height);
+			
+		this.fireEvent('acord-opened',branch);
+		this.fireEvent('handled-opened',branch.retrieve('handler'));
+			
+		if (this.current && this.current.removeClass) this.current.removeClass('accord-current');
+		
+		this.current = branch;
+		this.current.addClass('accord-current');
+			
+		parent.store('last-branch',branch);	
+	},
+	/**
+	 * performs the closing action on a branch
+	 * @param {Element} branch
+	 */
+	closeBranch : function(branch){
+		var height = branch.retrieve('full-height'),
+			parent = branch.retrieve('parent-branch');
+		
+		if (this.options.multiple) this.closeMultipleChildren(branch);
+		else this.closeChildBranches(branch);
+
+		if (parent)	this.AcordParentClose(parent,height);
+			
+		this.options.acordCloseFunction(branch,height);	
+			
+		branch.removeClass('acord-opened');
+		branch.addClass('acord-closed');
+		parent.store('last-branch',false);
+			
+		this.fireEvent('acord-closed');
+		this.fireEvent('handled-closed',branch.retrieve('handler'));
+		
+		if (this.current && this.current.removeClass) this.current.removeClass('accord-current');
+			
+		this.current = $empty;
+	},
+	/**
+	 * closes the child-branches of a branch in a multiple:false scenario
+	 * @param {Element} branch
+	 */
+	closeChildBranches : function(branch){
 		var children = [], child = branch.retrieve('last-branch');
 		while (child){
 			children.push(child);
@@ -122,66 +222,27 @@ var TreeAcordion = new Class({
 		} 
 		child = children.pop();
 		while (child){
-			self.Acord(child);
+			this.Acord(child);
 			child = children.pop();
 		}
 	},
 	/**
-	 * closes the children of a branch in a multiple:true flag
+	 * closes the child-branches of a branch in a multiple:true scenario
 	 * @param {Element} branch
-	 * @param {Object} self used instead of bind because this is a recursion
 	 */
-	closeMultipleChildren : function (branch,self){
+	closeMultipleChildren : function (branch){
 		var child = branch.getElement('.acord-opened');
 		while (child){
-			self.closeMultipleChildren(child,self);
-			self.Acord(child,self);
+			this.closeMultipleChildren(child);
+			this.Acord(child);
 			child = branch.getElement('.acord-opened');
 		}
 	},
-	Acord : function(branch){
-		var height = branch.retrieve('full-height'),
-			parent = branch.retrieve('parent-branch'),
-			self = this;
-		
-		if (this.options.debug) console.log(branch.get('id'));
-		if (branch.hasClass('acord-closed')){
-			this.options.acordOpenFunction(branch,height);
-			
-			branch.removeClass('acord-closed');
-			branch.addClass('acord-opened');
-			
-			if (parent)	this.AcordParentOpen(parent,height);
-			
-			this.fireEvent('acord-opened',branch);
-			this.fireEvent('handled-opened',branch.retrieve('handler'));
-			
-			if (this.current && this.current.removeClass) this.current.removeClass('accord-current');
-			
-			this.current = branch;
-			this.current.addClass('accord-current');
-			
-			parent.store('last-branch',branch);	
-		}else{
-			if (self.options.multiple) self.closeMultipleChildren(branch,self);
-			else self.closeChildBranches(branch,self);
-			if (parent)	this.AcordParentClose(parent,height);
-			
-			this.options.acordCloseFunction(branch,height);	
-			
-			branch.removeClass('acord-opened');
-			branch.addClass('acord-closed');
-			parent.store('last-branch',false);
-			
-			this.fireEvent('acord-closed');
-			this.fireEvent('handled-closed',branch.retrieve('handler'));
-			
-			if (this.current && this.current.removeClass) this.current.removeClass('accord-current');
-			
-			this.current = $empty;
-		}
-		
-	},
+	/**
+	 * bubbles up the opening effect of a branch
+	 * @param {Element} branch
+	 * @param {int} height the added height
+	 */
 	AcordParentOpen : function(branch,height){
 		var branch_height = branch.retrieve('current-height'),
 			parent = branch.retrieve('parent-branch');
@@ -193,6 +254,11 @@ var TreeAcordion = new Class({
 		
 		if (parent) this.AcordParentOpen(parent,height);
 	},
+	/**
+	 * bubbles up the closing effect of a branch
+	 * @param {Element} branch
+	 * @param {int} height the reduced height
+	 */
 	AcordParentClose :function(branch,height){
 		var branch_height = branch.retrieve('current-height'),
 			parent = branch.retrieve('parent-branch');
@@ -206,24 +272,26 @@ var TreeAcordion = new Class({
 		
 		this.AcordParentClose(parent,height);
 	},
-	findParent : function(branch){
-		var parent = branch.getParent();
-		
-		while (parent.get('tag')!='body' && parent != this.root){
-			if (parent.hasClass('branch')) return parent;
-			parent = parent.getParent();
-		}
-		
-		if (parent == this.root) return parent;
-		
-		throw "no root element found for tree";
-	},
+	/**
+	 * the default accordion-open effect
+	 * @param {Element} branch
+	 * @param {int} height
+	 */
 	acordOpenFunction : function(branch,height){
 		branch.tween('height',height);
 	},
-	acordCloseFunction : function(branch){
+	/**
+	 * the default accordion-open effect
+	 * @param {Element} branch
+	 * @param {int} height not used by this effect
+	 */
+	acordCloseFunction : function(branch,height){
 		branch.tween('height',0);
 	},
+	/**
+	 * sets the multiple flag
+	 * @param {bool} flag
+	 */
 	setMultiple : function(flag){
 		if (flag !== 'undefined'){
 			this.options.multiple = (flag===true);
@@ -234,6 +302,19 @@ var TreeAcordion = new Class({
 			this.closeMultipleChildren(this.root,this);
 		}		
 		if (this.options.debug) console.log('multiple:',this.options.multiple);
+		return this;
+	},
+	/**
+	 * sets the debug flag
+	 * @param {bool} flag
+	 */
+	setDebug : function(flag){
+		if (flag !== 'undefined'){
+			this.options.debug = (flag===true);
+		}else{
+			this.options.debug = this.options.debug ? false : true;
+		}		
+		if (this.options.debug) console.log('debug:',this.options.debug);
 		return this;
 	}
 });

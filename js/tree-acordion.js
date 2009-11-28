@@ -107,6 +107,11 @@ var TreeAcordion = new Class({
 		branch.store('full-height',branch.getSize().y.toInt());
 		branch.setStyle('height',0);
 	},
+	/**
+	 * closes the children of a branch in a multiple:false flag
+	 * @param {Element} branch
+	 * @param {Object} self used instead of bind because this is a recursion
+	 */
 	closeChildBranches : function(branch,self){
 		var children = [], child = branch.retrieve('last-branch');
 		while (child){
@@ -119,6 +124,11 @@ var TreeAcordion = new Class({
 			child = children.pop();
 		}
 	},
+	/**
+	 * closes the children of a branch in a multiple:true flag
+	 * @param {Element} branch
+	 * @param {Object} self used instead of bind because this is a recursion
+	 */
 	closeMultipleChildren : function (branch,self){
 		var child = branch.getElement('.acord-opened');
 		while (child){
@@ -212,12 +222,14 @@ var TreeAcordion = new Class({
 		branch.tween('height',0);
 	},
 	setMultiple : function(flag){
-		if (flag){
-			this.options.multiple = (flag==true);
-			return this;
+		if (flag !== 'undefined'){
+			this.options.multiple = (flag===true);
 		}else{
 			this.options.multiple = this.options.multiple ? false : true;
-			return this;
+		}
+		if (this.options.multiple == false){
+			this.closeMultipleChildren(this.root,this);
 		}		
+		return this;
 	}
 });

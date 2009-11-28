@@ -210,5 +210,14 @@ var TreeAcordion = new Class({
 	},
 	acordCloseFunction : function(branch){
 		branch.tween('height',0);
+	},
+	setMultiple : function(flag){
+		if (flag){
+			this.options.multiple = (flag==true);
+			return this;
+		}else{
+			this.options.multiple = this.options.multiple ? false : true;
+			return this;
+		}		
 	}
 });

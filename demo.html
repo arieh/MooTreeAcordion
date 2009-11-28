@@ -57,12 +57,11 @@
 <script type="text/javascript" src="js/mootools-1.2.4.2-more.js"></script>
 <script type='text/javascript' src='js/tree-acordion.js'></script>
 <script type='text/javascript'>
-	var list = new TreeAcordion('root',{multiple:false}), flag = true;
+	var list = new TreeAcordion('root',{multiple:false,debug:true}), flag = true;
 	$('set-flag').addEvent('click',function(){
 		if (flag) flag = false;
 		else flag = true;
 		list.setMultiple(flag);
-		console.log('multiple:',flag);
 	})
 </script>
 </body>

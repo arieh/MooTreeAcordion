@@ -28,7 +28,8 @@ var TreeAcordion = new Class({
 		branchContrainer : 'li',
 		acordOpenFunction : $empty,
 		acordCloseFunction : $empty,
-		multiple : false
+		multiple : false,
+		debug : false
 	},
 	root : $empty,
 	current : $empty,
@@ -143,6 +144,7 @@ var TreeAcordion = new Class({
 			parent = branch.retrieve('parent-branch'),
 			self = this;
 		
+		if (this.options.debug) console.log(branch.get('id'));
 		if (branch.hasClass('acord-closed')){
 			this.options.acordOpenFunction(branch,height);
 			
@@ -231,6 +233,7 @@ var TreeAcordion = new Class({
 		if (this.options.multiple == false){
 			this.closeMultipleChildren(this.root,this);
 		}		
+		if (this.options.debug) console.log('multiple:',this.options.multiple);
 		return this;
 	}
 });

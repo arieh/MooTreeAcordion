@@ -112,7 +112,7 @@ var TreeAcordion = new Class({
 		branch.store('handler',handler);
 				
 		handler.addEvent('click',function(e){
-			self.toggleHandler(branch);
+			self.toggleBranch(branch);
 			if (e) e.stopPropagation();
 		});
 	},
@@ -132,7 +132,11 @@ var TreeAcordion = new Class({
 		
 		throw "no root element found for tree";
 	},
-	toggleHandler : function(branch){
+	/**
+	 * toggles the branch. can be used to access the toggling action from outside the class
+	 * @param {Element} branch
+	 */
+	toggleBranch : function(branch){
 		if (this.options.debug) console.log(branch.get('id'));
 			
 		var parent = branch.retrieve('parent-branch'),

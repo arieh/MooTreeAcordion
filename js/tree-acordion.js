@@ -92,6 +92,10 @@ var TreeAcordion = new Class({
 		branch.setStyle('height','auto');
 		branch.store('full-height',branch.getSize().y.toInt());
 		branch.setStyle('height',0);
+		if (branch.get('tabIndex')){
+			branch.store('tab-index',branch.get('tabIndex'));
+		}
+
 	},
 	/**
 	 * initializes the branches containers
@@ -114,6 +118,35 @@ var TreeAcordion = new Class({
 		handler.addEvent('click',function(e){
 			self.toggleBranch(branch);
 			if (e) e.stopPropagation();
+		});
+		
+		
+		handler.addEvent('keydown',function(e){
+			function toggle(){
+				self.toggleBranch(branch);
+				if (e) e.stopPropagation();
+			}
+			switch (e.key){
+				case 'space':
+					toggle();
+				break;
+				case 'right':
+					if (self.options.rtl){
+						if (branch.hasClass('acord-closed')) return;
+					}else{
+						if (branch.hasClass('acord-opened')) return;
+					}
+					toggle();
+				break;
+				case 'left':
+					if (false == self.options.rtl){
+						if (branch.hasClass('acord-opened')) return;
+					}else{
+						if (branch.hasClass('acord-closed')) return;
+					}
+					toggle();
+				break;
+			}
 		});
 	},
 	/**
@@ -154,6 +187,7 @@ var TreeAcordion = new Class({
 		}
 				
 		this.Acord(branch);
+		return this;
 	},
 	/**
 	 * calls the Accordion effect on a given branch

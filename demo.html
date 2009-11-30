@@ -17,36 +17,36 @@
 	</li></ul>
 <ul id='root'>
 	<li>
-		<span class='acord-handle'>a</span>
+		<a href='javascript:;' class='acord-handle'>a</a>
 		<ul class='branch' id='a'>
 			<li>
-				<span class="acord-handle">c</span>				<ul id="c" class="branch">					<li>e</li>				</ul>
+				<a href='javascript:;' class="acord-handle">c</a>				<ul id="c" class="branch">					<li>e</li>				</ul>
 			</li>
 			<li>
-				<span class="acord-handle">d</span>				<ul id="d" class="branch">					<li>f</li>				</ul>
+				<a href='javascript:;' class="acord-handle">d</a>				<ul id="d" class="branch">					<li>f</li>				</ul>
 			</li>
 		</ul>
 	</li>
 	<li>
-		<span class='acord-handle'>b</span>
+		<a href='javascript:;' class='acord-handle'>b</a>
 		<ul class='branch' id='b'>
-			<li><span class='acord-handle'>g</span>
+			<li><a href='javascript:;' class='acord-handle'>g</a>
 				<ul id="g" class="branch">					<li>i</li>				</ul>
 			</li>
 			<li>
-				<span class='acord-handle'>h</span>
+				<a href='javascript:;' class='acord-handle'>h</a>
 				<ul class='branch' id='h'>
-					<li><span class='acord-handle'>j</span>
+					<li><a href='javascript:;' class='acord-handle'>j</a>
 						<ul class='branch' id='j' >
 							<li>
-								<span class="acord-handle">l</span>								<ul id="l" class="branch">									<li>o</li>								</ul>
+								<a href='javascript:;' class="acord-handle">l</a>								<ul id="l" class="branch">									<li>o</li>								</ul>
 							</li>
 						</ul>
 					</li>
-					<li><span class='acord-handle'>k</span>
+					<li><a href='javascript:;' class='acord-handle'>k</a>
 						<ul class='branch' id='k'>
 							<li>
-								<span class="acord-handle">m</span>								<ul id="m" class="branch">									<li>n</li>								</ul>
+								<a href='javascript:;' class="acord-handle">m</a>								<ul id="m" class="branch">									<li>n</li>								</ul>
 							</li>
 						</ul>
 					</li>
@@ -72,6 +72,9 @@
 		else _debug = true;
 		list.setDebug(_debug);
 	})
+	
+	
+	
 	$('chain-call').addEvent('click',function(){
 		function toggle(el){
 			list.toggleBranch(el);
@@ -100,7 +103,12 @@
 		]);
 		var a = (function(){
 			todo.callChain();
-		}).periodical(500);
+		}).periodical(700);
+
+		
+		$('debug-flag').addEvent('keydown',function(e){
+			console.log(e.key);
+		});
 	})
 </script>
 </body>

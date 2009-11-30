@@ -58,6 +58,7 @@
 <script type="text/javascript" src="js/mootools-1.2.4-core.js"></script>
 <script type="text/javascript" src="js/mootools-1.2.4.2-more.js"></script>
 <script type='text/javascript' src='js/tree-acordion.js'></script>
+<script type="text/javascript" src="js/function-stack.js"></script>
 <script type='text/javascript'>
 	var _debug=false,
 		_multiple=false,
@@ -78,13 +79,7 @@
 			list.toggleBranch(el);
 			return this;
 		}
-		var Todo = new Class({
-	        Implements: Chain,
-	        initialize: function(){
-	            this.chain.apply(this, arguments);
-	        }
-	    }),
-		todo = new Todo([
+		var FS = new FunctionStack([
 			function(){toggle($('a'))},
 			function(){toggle($('c'))},
 			function(){toggle($('d'))},
@@ -95,18 +90,11 @@
 			function(){toggle($('l'))},
 			function(){toggle($('k'))},
 			function(){toggle($('m'))},
+			function(){toggle($('g'))},
 			function(){toggle($('a'))},
-			function(){toggle($('a'))},
-			function(){$clear(a);}
+			function(){toggle($('a'))}
 		]);
-		var a = (function(){
-			todo.callChain();
-		}).periodical(700);
-
-		
-		$('debug-flag').addEvent('keydown',function(e){
-			console.log(e.key);
-		});
+		FS.play(700);
 	})
 </script>
 </body>

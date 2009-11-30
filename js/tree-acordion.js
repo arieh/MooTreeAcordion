@@ -29,7 +29,8 @@ var TreeAcordion = new Class({
 		acordOpenFunction : $empty, //a function to use for opening a branch
 		acordCloseFunction : $empty, //a function to use for closing a branch
 		multiple : false, //whether or not to allow multiple branches to be opened alongside
-		debug : false //debug mode
+		debug : false, //debug mode
+		rtl : false
 	},
 	root : $empty,
 	current : $empty,

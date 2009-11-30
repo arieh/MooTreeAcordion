@@ -30,7 +30,7 @@ var TreeAcordion = new Class({
 		acordCloseFunction : $empty, //a function to use for closing a branch
 		multiple : false, //whether or not to allow multiple branches to be opened alongside
 		debug : false, //debug mode
-		rtl : false
+		rtl : false //whether the menu is run at an TRL directionality (used for keyboard usage)
 	},
 	root : $empty,
 	current : $empty,
@@ -41,8 +41,8 @@ var TreeAcordion = new Class({
 	 */
 	initialize : function(root,options){
 		this.setOptions(options);
-		if (this.options.acordOpenFunction == $empty) this.options.acordOpenFunction = this.acordOpenFunction;
-		if (this.options.acordCloseFunction == $empty) this.options.acordCloseFunction = this.acordCloseFunction;
+		if (this.options.acordOpenFunction === $empty) this.options.acordOpenFunction = this.acordOpenFunction;
+		if (this.options.acordCloseFunction === $empty) this.options.acordCloseFunction = this.acordCloseFunction;
 		this.root = document.id(root);
 		
 		var self=this,
@@ -53,7 +53,7 @@ var TreeAcordion = new Class({
 		clone.replaces(this.root);		
 		
 		this.root.setStyle('left',-9999);
-		$$('body')[0].adopt(this.root);
+		document.body.adopt(this.root);
 		
 		branches.each(function(branch){
 			branch.setStyle('display','block');
@@ -104,10 +104,9 @@ var TreeAcordion = new Class({
 	 */
 	initBranchContainer :function(container){
 		var branch  = container.getElement('.'+this.options.branchClass), 
-			parent = branch ? branch.retrieve('parent-branch'):this.findParent(container) ,
+			parent = branch ? branch.retrieve('parent-branch') : this.findParent(container) ,
 			handler = container.getElement('.'+this.options.openerClass),
-			self = this,
-			height;
+			self = this;
 			
 		if (!handler) handler = container;
 		if (!branch){
@@ -155,16 +154,14 @@ var TreeAcordion = new Class({
 	 * @param {Element} ele
 	 */
 	findParent : function(ele){
-		var parent = ele.getParent();
-		
-		while (parent.get('tag')!='body' && parent != this.root){
-			if (parent.hasClass('branch')) return parent;
+		var parent = ele.getParent('.'+this.options.branchClass);
+		if (parent) return parent;
+		else parent = ele.getParent();
+		while (parent){
+			if (parent === this.root) return parent;
 			parent = parent.getParent();
 		}
-		
-		if (parent == this.root) return parent;
-		
-		throw "no root element found for tree";
+		throw "no parent found:"+( ele.get('id') ? ele.get('id') : ele );
 	},
 	/**
 	 * toggles the branch. can be used to access the toggling action from outside the class
@@ -239,7 +236,7 @@ var TreeAcordion = new Class({
 
 		if (parent)	this.AcordParentClose(parent,height);
 			
-		this.options.acordCloseFunction(branch,height);	
+		this.options.acordCloseFunction(branch,0);	
 			
 		branch.removeClass('acord-opened');
 		branch.addClass('acord-closed');
@@ -308,9 +305,9 @@ var TreeAcordion = new Class({
 		if (!branch_height) branch_height = branch.retrieve('full-height');
 		
 		branch.store('current-height',branch_height-height);
-		branch.tween('height',branch_height-height);
+		this.acordCloseFunction(branch,branch_height-height);
 		
-		if (branch == this.root) return;
+		if (branch === this.root) return;
 		
 		this.AcordParentClose(parent,height);
 	},
@@ -325,10 +322,10 @@ var TreeAcordion = new Class({
 	/**
 	 * the default accordion-open effect
 	 * @param {Element} branch
-	 * @param {int} height not used by this effect
+	 * @param {int} new height
 	 */
 	acordCloseFunction : function(branch,height){
-		branch.tween('height',0);
+		branch.tween('height',height);
 	},
 	/**
 	 * sets the multiple flag

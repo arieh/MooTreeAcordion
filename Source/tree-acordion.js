@@ -1,3 +1,19 @@
+/*
+---
+description: A Class that provides an accordion behviour to a tree structured lists
+
+license: MIT-style
+
+authors:
+- Arieh Glazer
+
+requires:
+- requires: core:1.2.4:'*'
+
+provides: TreeAcordion
+
+...
+*/
 /*!
 Copyright (c) 2009 Arieh Glazer
 

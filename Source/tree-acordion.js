@@ -8,7 +8,7 @@ authors:
 - Arieh Glazer
 
 requires:
-- requires: core:1.2.4:'*'
+- requires: core/1.2.4:'*'
 
 provides: TreeAcordion
 

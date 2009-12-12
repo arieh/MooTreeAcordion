@@ -13,14 +13,14 @@ the library recognized 4 key components of a tree-
 
 the most basic example for this structure is this:
 
-<ul id='root'><!-- a root element --/>
-	<li> <!--  a container --/>
-		<span class='handle'>open Me 1</span> <!-- a handle --/>
-		<ul class='branch'> <!-- a branch -->
-			<li>Opened</li>
-		</ul>
-	</li>
-</ul>
+&lt;ul id='root'><!-- a root element --/>
+	&lt;li> <!--  a container --/>
+		&lt;span class='handle'>open Me 1&lt;/span> <!-- a handle --/>
+		&lt;ul class='branch'> <!-- a branch -->
+			&lt;li>Opened&lt;/li>
+		&lt;/ul>
+	&lt;/li>
+&lt;/ul>
 
 
 but you can use any other structure you would like under these rules.

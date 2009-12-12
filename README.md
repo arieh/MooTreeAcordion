@@ -7,20 +7,13 @@ this class takes a tree structure (by element id of by a passed element) and mak
 
 How to use
 ----------
-	
-	#CSS
-	ul#root   <--|root element|
-		li      <--|container|
-			a.handle   <--|handle|
-			ul.branch   <--|a branch|
-				li ....   <--|inner content|
 
-	
+Simple usage without any options:	
 	#JS
-	//Simple Example
 	var list = new TreeAcordion($('root'));
-	
-	//All Options
+
+Usage with all options:	
+	#JS
 	var list = new TreeAcordion('root',{
 		branchClass :'branch',
 		openerClass: 'handle',
@@ -32,6 +25,14 @@ How to use
 		rtl : true
 	});
 
+An example of an HTML strcture to work with:
+	#CSS
+	ul#root   <--|root element|
+		li      <--|container|
+			a.handle   <--|handle|
+			ul.branch   <--|a branch|
+				li ....   <--|inner content|	
+	
 Events
 -----------------
   * acord-opened : fired when a branch is opened. returns the opened branch

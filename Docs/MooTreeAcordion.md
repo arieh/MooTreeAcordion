@@ -36,3 +36,4 @@ Option List
   * multiple : whether or not to allow multiple branches to be opened at the same time (default:false)
   * debug : logs to console the last opened branch
   * rtl : whether the list is a right-to-left list. this will be used for keyboard binding
+  

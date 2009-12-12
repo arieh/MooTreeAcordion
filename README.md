@@ -3,23 +3,26 @@ TreeAcordion
 
 this class takes a tree structure (by element id of by a passed element) and makes it tweakable with an Acordion effect.
 
+![Screenshot](http://github.com/arieh/MooTreeAcordion/raw/master/acord-sc.png)
+
 How to use
 ----------
-	#HTML
-	&lt;ul id='root'&rt;
-		&lt;li&rt;
-			&lt;span class='handle'&rt;open Me 1&lt;/span&rt;
-			&lt;ul class='branch'&rt;
-				&lt;li&rt;Opened&lt;/li&rt;
-			&lt;/ul&rt;
-		&lt;/li&rt;
-		&lt;li&rt;
-			&lt;span clas='handle'&rt;open Me 2&lt;/span&rt;
-			&lt;ul class='branch'&rt;
-				&lt;li&rt;Opened&lt;/li&rt;
-			&lt;/ul&rt;
-		&lt;/li&rt;
-	&lt;/ul&rt;
+	
+	An example HTML structure:
+	<ul id='root'>
+		<li>
+			<span class='handle'>open Me 1</span>
+			<ul class='branch'>
+				<li>Opened</li>
+			</ul>
+		</li>
+		<li>
+			<span clas='handle'>open Me 2</span>
+			<ul class='branch'>
+				<li>Opened</li>
+			</ul>
+		</li>
+	</ul>
 	
 	#JS
 	//Simple Example
@@ -36,7 +39,6 @@ How to use
 		debug : false,
 		rtl : true
 	});
-
 
 Events
 -----------------

@@ -5,30 +5,31 @@ the class also provides keybard accessible interface.
 
 HTML Structure:
 ----------------
-the library recognized 4 key components of a tree-
-  * Root - the root element containing the entire tree
-  * Branch - a sub-tree that is toggelable with the accordion effect
-  * Handle - each branch must have a handle. the first handle on a branche's container will be used as its handle
-  * Branch Container - each branch is contained in a separate containing element. each container should only have one handle-branch pair
+the library recognized 4 key components of a tree:
+
+  * *Root* - the root element containing the entire tree
+  * *Branch* - a sub-tree that is toggelable with the accordion effect
+  * *Handle* - each branch must have a handle. the first handle on a branche's container will be used as its handle
+  * *Branch Container* - each branch is contained in a separate containing element. each container should only have one handle-branch pair
 
 so a sudjested minimal structure will be somethng like this:
-ul#root   <--|root element|
-	li      <--|container|
-		a.handle   <--|handle|
-		ul.branch   <--|a branch|
-			li ....   <--|inner content|
+	ul#root   <--|root element|
+		li      <--|container|
+			a.handle   <--|handle|
+			ul.branch   <--|a branch|
+				li ....   <--|inner content|
   
 but you can use any other structure you would like under these rules.
 each of these are costumizable through the Class's options.
 
 Option List
 ------------
-  * branchClass : a class to identify branches
-  * openerClass : a class to identify handles
-  * branchContainer : a selector to use for identifying branch containers. _NOTE! this will be handled as a css selector, not a class_
-  * acordOpenFunction : a class to use for the opening effect
-  * acordCloseFunction : same but for closing
-  * multiple : whether or not to allow multiple branches to be opened at the same time (default:false)
-  * debug : logs to console the last opened branch
-  * rtl : whether the list is a right-to-left list. this will be used for keyboard binding
+  * *branchClass* : a class to identify branches
+  * *openerClass* : a class to identify handles
+  * *branchContainer* : a selector to use for identifying branch containers. _NOTE! this will be handled as a css selector, not a class_
+  * *acordOpenFunction* : a class to use for the opening effect
+  * *acordCloseFunction* : same but for closing
+  * *multiple* : whether or not to allow multiple branches to be opened at the same time (default:false)
+  * *debug* : logs to console the last opened branch
+  * *rtl* : whether the list is a right-to-left list. this will be used for keyboard binding
   

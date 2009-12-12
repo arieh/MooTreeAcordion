@@ -8,7 +8,17 @@ authors:
 - Arieh Glazer
 
 requires:
-- requires: core/1.2.4:'*'
+- Event : 1.2.4
+- Class : 1.2.4
+- Class.Extras : 1.2.4
+- Element : 1.2.4
+- Element.Event : 1.2.4
+- Element.Style : 1.2.4
+- Element.Dimensions : 1.2.4
+- Selectors : 1.2.4
+- DomReady : 1.2.4
+- Fx.Tween : 1.2.4
+- Element.Measure : 1.2.4
 
 provides: TreeAcordion
 

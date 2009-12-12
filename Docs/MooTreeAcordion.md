@@ -6,13 +6,18 @@ the class also provides keybard accessible interface.
 HTML Structure:
 ----------------
 the library recognized 4 key components of a tree-
-  # Root - the root element containing the entire tree
-  # Branch - a sub-tree that is toggelable with the accordion effect
-  # Handle - each branch must have a handle. the first handle on a branche's container will be used as its handle
-  # Branch Container - each branch is contained in a separate containing element. each container should only have one handle-branch pair
+  * Root - the root element containing the entire tree
+  * Branch - a sub-tree that is toggelable with the accordion effect
+  * Handle - each branch must have a handle. the first handle on a branche's container will be used as its handle
+  * Branch Container - each branch is contained in a separate containing element. each container should only have one handle-branch pair
 
-
-
+so a sudjested minimal structure will be somethng like this:
+ul#root   <--|root element|
+	li      <--|container|
+		a.handle   <--|handle|
+		ul.branch   <--|a branch|
+			li ....   <--|inner content|
+  
 but you can use any other structure you would like under these rules.
 each of these are costumizable through the Class's options.
 

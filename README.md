@@ -8,21 +8,13 @@ this class takes a tree structure (by element id of by a passed element) and mak
 How to use
 ----------
 	
-	An example HTML structure:
-	<ul id='root'>
-		<li>
-			<span class='handle'>open Me 1</span>
-			<ul class='branch'>
-				<li>Opened</li>
-			</ul>
-		</li>
-		<li>
-			<span clas='handle'>open Me 2</span>
-			<ul class='branch'>
-				<li>Opened</li>
-			</ul>
-		</li>
-	</ul>
+	#CSS
+	ul#root   <--|root element|
+		li      <--|container|
+			a.handle   <--|handle|
+			ul.branch   <--|a branch|
+				li ....   <--|inner content|
+
 	
 	#JS
 	//Simple Example

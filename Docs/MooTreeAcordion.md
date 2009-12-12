@@ -11,16 +11,6 @@ the library recognized 4 key components of a tree-
   # Handle - each branch must have a handle. the first handle on a branche's container will be used as its handle
   # Branch Container - each branch is contained in a separate containing element. each container should only have one handle-branch pair
 
-the most basic example for this structure is this:
-
-&lt;ul id='root'><!-- a root element --/>
-	&lt;li> <!--  a container --/>
-		&lt;span class='handle'>open Me 1&lt;/span> <!-- a handle --/>
-		&lt;ul class='branch'> <!-- a branch -->
-			&lt;li>Opened&lt;/li>
-		&lt;/ul>
-	&lt;/li>
-&lt;/ul>
 
 
 but you can use any other structure you would like under these rules.

@@ -1,4 +1,4 @@
-Usage Explination
+Usage Explanation
 ===================
 The Tree-Acordion takes a tree structured HTML element and adds the effects needed to make it use an accordion effect on its branches.
 the class also provides keybard accessible interface.
@@ -13,7 +13,7 @@ the library recognized 4 key components of a tree:
   * *Branch Container* - each branch is contained in a separate containing element. each container should only have one handle-branch pair
 
 so a sudjested minimal structure will be somethng like this:
-	ul#root   <--|root element|
+	&lt;ul id='root' &rt;   <--|root element|
 		li      <--|container|
 			a.handle   <--|handle|
 			ul.branch   <--|a branch|

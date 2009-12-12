@@ -7,13 +7,13 @@ HTML Structure:
 ----------------
 the library recognized 4 key components of a tree:
 
-  * *Root* - the root element containing the entire tree
-  * *Branch* - a sub-tree that is toggelable with the accordion effect
-  * *Handle* - each branch must have a handle. the first handle on a branche's container will be used as its handle
-  * *Branch Container* - each branch is contained in a separate containing element. each container should only have one handle-branch pair
+  * *Root* - the root element containing the entire tree (supplied at construction)
+  * *Branch* - a sub-tree that is toggelable with the accordion effect (default: `branch`)
+  * *Handle* - each branch must have a handle. the first handle on a branche's container will be used as its handle (default: `handle`)
+  * *Branch Container* - each branch is contained in a separate containing element. each container should only have one handle-branch pair (default: `li`)
 
 so a sudjested minimal structure will be somethng like this:
-	&lt;ul id='root' &rt;   <--|root element|
+	ul#root   <--|root element|
 		li      <--|container|
 			a.handle   <--|handle|
 			ul.branch   <--|a branch|

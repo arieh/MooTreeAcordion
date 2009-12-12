@@ -9,10 +9,12 @@ How to use
 ----------
 
 Simple usage without any options:	
+
 	#JS
 	var list = new TreeAcordion($('root'));
 
 Usage with all options:	
+
 	#JS
 	var list = new TreeAcordion('root',{
 		branchClass :'branch',
@@ -26,6 +28,7 @@ Usage with all options:
 	});
 
 An example of an HTML strcture to work with:
+
 	#CSS
 	ul#root   <--|root element|
 		li      <--|container|

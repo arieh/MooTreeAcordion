@@ -6,20 +6,20 @@ this class takes a tree structure (by element id of by a passed element) and mak
 How to use
 ----------
 	#HTML
-	<ul id='root'>
-		<li>
-			<span class='handle'>open Me 1</span>
-			<ul class='branch'>
-				<li>Opened</li>
-			</ul>
-		</li>
-		<li>
-			<span clas='handle'>open Me 2</span>
-			<ul class='branch'>
-				<li>Opened</li>
-			</ul>
-		</li>
-	</ul>
+	&lt;ul id='root'&rt;
+		&lt;li&rt;
+			&lt;span class='handle'&rt;open Me 1&lt;/span&rt;
+			&lt;ul class='branch'&rt;
+				&lt;li&rt;Opened&lt;/li&rt;
+			&lt;/ul&rt;
+		&lt;/li&rt;
+		&lt;li&rt;
+			&lt;span clas='handle'&rt;open Me 2&lt;/span&rt;
+			&lt;ul class='branch'&rt;
+				&lt;li&rt;Opened&lt;/li&rt;
+			&lt;/ul&rt;
+		&lt;/li&rt;
+	&lt;/ul&rt;
 	
 	#JS
 	//Simple Example

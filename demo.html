@@ -1,0 +1,103 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+	<title>Tree Acordion Example</title>
+	<meta http-equiv="Content-Type" content="text/html; charset='UTF-8'" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<link type='text/css' rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<ul id='menu'>	<li><a href='javascript:;' id='chain-call'>call chain</a></li>
+	<li><a href='javascript:;' id='multiple-flag'>toggle multiple</a></li>	<li>
+		<a href='javascript:;' id='debug-flag'>toggle debug</a>
+		<em>NOTE: debug uses <code>console.log</code></em>
+	</li></ul>
+<ul id='root'>
+	<li>
+		<a href='javascript:;' class='acord-handle'>a</a>
+		<ul class='branch' id='a'>
+			<li>
+				<a href='javascript:;' class="acord-handle">c</a>				<ul id="c" class="branch">					<li>e</li>				</ul>
+			</li>
+			<li>
+				<a href='javascript:;' class="acord-handle">d</a>				<ul id="d" class="branch">					<li>f</li>				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<a href='javascript:;' class='acord-handle'>b</a>
+		<ul class='branch' id='b'>
+			<li><a href='javascript:;' class='acord-handle'>g</a>
+				<ul id="g" class="branch">					<li>i</li>				</ul>
+			</li>
+			<li>
+				<a href='javascript:;' class='acord-handle'>h</a>
+				<ul class='branch' id='h'>
+					<li><a href='javascript:;' class='acord-handle'>j</a>
+						<ul class='branch' id='j' >
+							<li>
+								<a href='javascript:;' class="acord-handle">l</a>								<ul id="l" class="branch">									<li>o</li>								</ul>
+							</li>
+						</ul>
+					</li>
+					<li><a href='javascript:;' class='acord-handle'>k</a>
+						<ul class='branch' id='k'>
+							<li>
+								<a href='javascript:;' class="acord-handle">m</a>								<ul id="m" class="branch">									<li>n</li>								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<script type="text/javascript" src="js/mootools-1.2.4-core.js"></script>
+<script type="text/javascript" src="js/mootools-1.2.4.2-more.js"></script>
+<script type='text/javascript' src='js/source/tree-acordion.js'></script>
+<script type="text/javascript" src="js/function-stack.js"></script>
+<script type='text/javascript'>
+	var _debug=false,
+		_multiple=false,
+		list = new TreeAcordion('root',{multiple:_multiple,debug:_debug});
+	
+	$('multiple-flag').addEvent('click',function(){
+		if (_multiple) _multiple = false;
+		else _multiple = true;
+		list.setMultiple(_multiple);
+	})
+	
+	$('debug-flag').addEvent('click',function(){
+		if (_debug) _debug = false;
+		else _debug = true;
+		list.setDebug(_debug);
+	})
+	
+	$('chain-call').addEvent('click',function(){
+		function toggle(el){
+			list.toggleBranch(el);
+			return this;
+		}
+		var FS = new FunctionStack([
+			function(){toggle($('a'))},
+			function(){toggle($('c'))},
+			function(){toggle($('d'))},
+			function(){toggle($('b'))},
+			function(){toggle($('g'))},
+			function(){toggle($('h'))},
+			function(){toggle($('j'))},
+			function(){toggle($('l'))},
+			function(){toggle($('k'))},
+			function(){toggle($('m'))},
+			function(){toggle($('g'))},
+			function(){toggle($('a'))},
+			function(){toggle($('a'))}
+		]);
+		FS.play(700);
+	})
+</script>
+</body>
+</html>

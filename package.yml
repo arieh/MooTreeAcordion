@@ -1,7 +1,7 @@
 name: MooTreeAcordion
 author: arieh
 category: Interface
-tags: [menus, behavioral]
-demo: http://tests.arieh.co.il/acord/demo.html
+tags: [menus, behavioral,utilities]
+demo: http://arieh.github.com/MooTreeAcordion/
 docs: http://github.com/arieh/MooTreeAcordion/blob/master/Docs/MooTreeAcordion.md
 current: 1.7

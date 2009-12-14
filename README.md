@@ -3,7 +3,7 @@ TreeAcordion
 
 this class takes a tree structure (by element id of by a passed element) and makes it tweakable with an Acordion effect.
 
-![Screenshot](http://github.com/arieh/MooTreeAcordion/raw/master/acord-sc.png)
+![Screenshot](http://img709.imageshack.us/img709/2213/acordsc.png)
 
 How to use
 ----------

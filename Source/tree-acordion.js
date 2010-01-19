@@ -8,19 +8,19 @@ authors:
 - Arieh Glazer
 
 requires:
-- core: 1.2.4/Event
-- core: 1.2.4/Class
-- core: 1.2.4/Class.Extras
-- core: 1.2.4/Element
-- core: 1.2.4/Element.Event
-- core: 1.2.4/Element.Style
-- core: 1.2.4/Element.Dimensions
-- core: 1.2.4/Selectors
-- core: 1.2.4/DomReady
-- core: 1.2.4/Fx.Tween
-- more: 1.2.4/Element.Measure
+- core/1.2.4: Event
+- core/1.2.4: Class
+- core/1.2.4: Class.Extras
+- core/1.2.4: Element
+- core/1.2.4: Element.Event
+- core/1.2.4: Element.Style
+- core/1.2.4: Element.Dimensions
+- core/1.2.4: Selectors
+- core/1.2.4: DomReady
+- core/1.2.4: Fx.Tween
+- more/1.2.4: Element.Measure
 
-provides: TreeAcordion
+provides: [TreeAcordion]
 
 ...
 */

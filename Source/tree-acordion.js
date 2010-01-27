@@ -8,17 +8,8 @@ authors:
 - Arieh Glazer
 
 requires:
-- core/1.2.4: Event
-- core/1.2.4: Class
-- core/1.2.4: Class.Extras
-- core/1.2.4: Element
-- core/1.2.4: Element.Event
-- core/1.2.4: Element.Style
-- core/1.2.4: Element.Dimensions
-- core/1.2.4: Selectors
-- core/1.2.4: DomReady
-- core/1.2.4: Fx.Tween
-- more/1.2.4: Element.Measure
+- core/1.2.4: [Event, Class, Class.Extras, Element, Element.Event, Element.Style, Element.Dimensions, Selectors, DomReady, Fx.Tween]
+- more/1.2.4: [Element.Measure]
 
 provides: [TreeAcordion]
 
@@ -374,12 +365,13 @@ var TreeAcordion = new Class({
 	 * @param {bool} flag
 	 */
 	setDebug : function(flag){
-		if (flag !== 'undefined'){
-			this.options.debug = (flag===true);
+		if (flag != 'undefined'){
+			this.options.debug = (flag == true);
 		}else{
 			this.options.debug = this.options.debug ? false : true;
 		}		
 		if (this.options.debug) console.log('debug:',this.options.debug);
 		return this;
-	}
+	},
+	toElement : function(){return this.root}
 });

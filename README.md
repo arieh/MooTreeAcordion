@@ -29,12 +29,15 @@ Usage with all options:
 
 An example of an HTML strcture to work with:
 
-	#CSS
-	ul#root   <--|root element|
-		li      <--|container|
-			a.handle   <--|handle|
-			ul.branch   <--|a branch|
-				li ....   <--|inner content|	
+	#HTML
+	<ul id='root'>
+		<li>
+			<a href='javascript:;' class='handle'>handle</a>
+			<ul class ='branch'>
+				<li><ul class='branch'><!-- .... /--></ul></li>
+			</ul>
+		</li>
+	</ul>
 	
 Events
 -----------------

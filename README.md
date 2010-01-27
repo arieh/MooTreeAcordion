@@ -30,10 +30,11 @@ Usage with all options:
 An example of an HTML strcture to work with:
 
 	#HTML
-	<ul id='root'>
-		<li>
-			<a href='javascript:;' class='handle'>handle</a>
-			<ul class ='branch'>
+	<ul id='root'> <!-- root element /-->
+		<li> <!--  branch container /-->
+			<a href='javascript:;' class='handle'>
+				handle</a> <!-- handle /-->
+			<ul class ='branch'> <!-- a branch /-->
 				<li><ul class='branch'><!-- .... /--></ul></li>
 			</ul>
 		</li>

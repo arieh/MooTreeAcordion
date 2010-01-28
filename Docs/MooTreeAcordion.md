@@ -27,7 +27,7 @@ TreeAcordion Method: constructor {#TreeAcordion:constructor}
 
 ### Example:
 	
-	#JS
+#### JS
 	var list = new TreeAcordion('root',{
 		branchClass :'branch',
 		openerClass: 'handle',
@@ -39,7 +39,17 @@ TreeAcordion Method: constructor {#TreeAcordion:constructor}
 		rtl : true
 	}); 
  
-
+#### HTML
+	
+	<ul id='root'> <!-- root element /-->
+		<li> <!--  branch container /-->
+			<a href='javascript:;' class='handle'>
+				handle</a> <!-- handle /-->
+			<ul class ='branch'> <!-- a branch /-->
+				<li><ul class='branch'><!-- .... /--></ul></li>
+			</ul>
+		</li>
+	</ul>	
 TreeAcordion: Events {#TreeAcordion:events)
 -----------------
  * acord-opened : fired when a branch is opened. returns the opened branch

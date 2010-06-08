@@ -48,6 +48,7 @@ var TreeAcordion = new Class({
 		multiple : false, //whether or not to allow multiple branches to be opened alongside
 		debug : false, //debug mode
 		rtl : false //whether the menu is run at an TRL directionality (used for keyboard usage)
+		, parent : false
 	},
 	root : $empty,
 	current : $empty,
@@ -61,16 +62,18 @@ var TreeAcordion = new Class({
 		if (this.options.acordOpenFunction === $empty) this.options.acordOpenFunction = this.acordOpenFunction;
 		if (this.options.acordCloseFunction === $empty) this.options.acordCloseFunction = this.acordCloseFunction;
 		this.root = document.id(root);
-		
-		var self=this,
+		var parent = this.root.getParent() || document.body,
+			self=this,
 			clone = this.root.clone(),
 			branches = this.root.getElements('.'+this.options.branchClass),  
 			root_containers = this.root.getElements(this.options.branchContrainer);
 		
+		if (this.options.parent) parent = this.options.parent;
+		
 		clone.replaces(this.root);		
 		
 		this.root.setStyle('left',-9999);
-		$(document.body).adopt(this.root);
+		$(parent).adopt(this.root);
 		
 		branches.each(function(branch){
 			branch.setStyle('display','block');

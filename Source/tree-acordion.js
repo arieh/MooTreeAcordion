@@ -70,7 +70,7 @@ var TreeAcordion = new Class({
 		clone.replaces(this.root);		
 		
 		this.root.setStyle('left',-9999);
-		document.body.adopt(this.root);
+		$(document.body).adopt(this.root);
 		
 		branches.each(function(branch){
 			branch.setStyle('display','block');

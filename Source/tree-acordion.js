@@ -39,7 +39,7 @@ THE SOFTWARE
 
 (function($,$empty,undef){
 
-var TreeAcordion = new Class({
+TreeAcordion = new Class({
 	Implements: [Options, Events],
 	options: {
 		branchClass : 'branch',  //the branches class

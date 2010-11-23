@@ -8,8 +8,8 @@ authors:
 - Arieh Glazer
 
 requires:
-- core/1.2.4: [Event, Class, Class.Extras, Element, Element.Event, Element.Style, Element.Dimensions, Selectors, DomReady, Fx.Tween]
-- more/1.2.4: [Element.Measure]
+- core/1.3: [Event, Class, Class.Extras, Element, Element.Event, Element.Style, Element.Dimensions, Selectors, DomReady, Fx.Tween]
+- more/1.3: [Element.Measure]
 
 provides: [TreeAcordion]
 
@@ -36,6 +36,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE 
 */
+
+(function($,$empty,undef){
 
 var TreeAcordion = new Class({
 	Implements: [Options, Events],
@@ -378,3 +380,5 @@ var TreeAcordion = new Class({
 	},
 	toElement : function(){return this.root}
 });
+
+})(document.id,Function.create());
